@@ -7,6 +7,9 @@ build:golang:1.21:
   image: golang:1.21
   variables:
     CGO_ENABLED: 0
+    CONSUL_GO_BASE_URL: http://consul:8500/
+  services:
+    - consul:1.15.4
   script:
     - echo $CI_PIPELINE_ID
     - echo $CI_JOB_ID

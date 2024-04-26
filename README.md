@@ -8,6 +8,10 @@ go env -w GOPROXY=https://goproxy.cn,direct
 # go env -w GOPROXY=https://goproxy.io,direct
 # go env -w GOPROXY=https://mirrors.aliyun.com/goproxy,direct
 # go env -w GOPROXY=https://mirrors.cloud.tencent.com/go,direct
+go get -u github.com/google/go-querystring
+go get -u github.com/hashicorp/go-cleanhttp
+go get -u github.com/hashicorp/go-retryablehttp
+go get -u github.com/stretchr/testify
 go get -u github.com/urfave/cli/v2
 go get -u github.com/xuxiaowei-com-cn/git-go@main
 go get -u gopkg.in/yaml.v3

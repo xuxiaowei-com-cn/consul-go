@@ -28,6 +28,10 @@ jobs:
       matrix:
         os: [ "ubuntu-latest" ]
 
+    services:
+      consul:
+        image: consul:1.15.4
+
     steps:
       - name: Checkout repository（xuxiaowei-com-cn/cicd-release）
         uses: actions/checkout@v4
@@ -74,19 +78,22 @@ jobs:
       #- name: Set up Go
       #  uses: actions/setup-go@v4
       #  with:
-      #    go-version: '1.20'
+      #    go-version: '1.21'
 
       - name: Set Current Date ENV
         run: |
           echo "YEAR_MONTH_DAY=$(date +'%Y-%m-%dZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y-%m-%dT%HZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y-%m-%dT%H-%MZ')" >> $GITHUB_ENV
+          CONSUL_HOST=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -qf 'ancestor=consul:1.15.4')`
+          echo "CONSUL_GO_BASE_URL=http://$CONSUL_HOST:8500/" >> $GITHUB_ENV
 
       - name: Get Current Date ENV
         run: |
           echo ${{ env.YEAR_MONTH_DAY }}
           echo ${{ env.YEAR_MONTH_DAY_HOUR }}
           echo ${{ env.YEAR_MONTH_DAY_HOUR_MINUTE }}
+          echo ${{ env.CONSUL_GO_BASE_URL }}
 
       - name: Set Current Date OUTPUT
         id: set_current_date_output
