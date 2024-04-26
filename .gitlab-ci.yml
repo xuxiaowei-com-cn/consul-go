@@ -1,5 +1,6 @@
 stages:
   - build
+  - sync
 
 build:golang:1.21:
   stage: build
@@ -30,3 +31,6 @@ build:golang:1.21:
     expire_in: 3 day
     paths:
       - consul-go-*
+
+include:
+  - /sync.yml
