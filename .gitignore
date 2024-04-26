@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/*.exe
+/*/*.exe
+/consul-go-windows-*
+/consul-go-linux-*
+/consul-go-darwin-*
+
+/buildinfo/buildinfo
