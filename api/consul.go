@@ -39,8 +39,9 @@ type Client struct {
 	Prefix string      // 日志配置
 	Flag   int         // 日志配置
 
-	Catalog   *CatalogService
 	Autopilot *AutopilotService
+	Catalog   *CatalogService
+	Kv        *KvService
 }
 
 type ListOptions struct {
@@ -80,8 +81,9 @@ func BuildClient(c *Client, baseURL string, username string, password string) (*
 		Backoff:      retryablehttp.DefaultBackoff,
 	}
 
-	c.Catalog = &CatalogService{client: c}
 	c.Autopilot = &AutopilotService{client: c}
+	c.Catalog = &CatalogService{client: c}
+	c.Kv = &KvService{client: c}
 
 	err := c.SetBaseURL(baseURL)
 	if err != nil {
