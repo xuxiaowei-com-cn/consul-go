@@ -15,9 +15,9 @@ type GetKvRequestQuery struct {
 	Separator string `json:"separator,omitempty" url:"separator,omitempty"`
 }
 
-func (s *KvService) GetKv(requestQuery *GetKvRequestQuery, options ...RequestOptionFunc) ([]string, *Response, error) {
+func (s *KvService) GetKv(path string, requestQuery *GetKvRequestQuery, options ...RequestOptionFunc) ([]string, *Response, error) {
 
-	u := "v1/kv"
+	u := fmt.Sprintf("v1/kv/%s", path)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, requestQuery, nil, options)
 	if err != nil {
