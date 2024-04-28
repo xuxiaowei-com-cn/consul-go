@@ -17,7 +17,7 @@ type GetKvRequestQuery struct {
 
 func (s *KvService) GetKv(requestQuery *GetKvRequestQuery, options ...RequestOptionFunc) ([]string, *Response, error) {
 
-	u := "/v1/kv"
+	u := "v1/kv"
 
 	req, err := s.client.NewRequest(http.MethodGet, u, requestQuery, nil, options)
 	if err != nil {
@@ -39,7 +39,7 @@ type GetKvNameRequestQuery struct {
 
 func (s *KvService) GetKvName(name string, requestQuery *GetKvNameRequestQuery, options ...RequestOptionFunc) ([]string, *Response, error) {
 
-	u := fmt.Sprintf("/v1/kv/%s", name)
+	u := fmt.Sprintf("v1/kv/%s", name)
 
 	req, err := s.client.NewRequest(http.MethodGet, u, requestQuery, nil, options)
 	if err != nil {

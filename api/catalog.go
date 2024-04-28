@@ -8,7 +8,7 @@ type CatalogService struct {
 
 func (s *CatalogService) GetDatacenters(options ...RequestOptionFunc) ([]string, *Response, error) {
 
-	u := "/v1/catalog/datacenters"
+	u := "v1/catalog/datacenters"
 
 	req, err := s.client.NewRequest(http.MethodGet, u, nil, nil, options)
 	if err != nil {

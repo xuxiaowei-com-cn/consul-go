@@ -8,7 +8,7 @@ type AutopilotService struct {
 
 func (s *AutopilotService) GetAutopilotState(options ...RequestOptionFunc) (*interface{}, *Response, error) {
 
-	u := "/v1/operator/autopilot/state"
+	u := "v1/operator/autopilot/state"
 
 	req, err := s.client.NewRequest(http.MethodGet, u, nil, nil, options)
 	if err != nil {
