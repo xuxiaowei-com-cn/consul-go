@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"net/http"
+	"os"
 	"strings"
 	"testing"
 )
@@ -159,6 +160,18 @@ func folder(dc string, path string, client *Client, t *testing.T) {
 		Separator: "/",
 	}
 
+	_, err := os.Stat("tmp")
+	if os.IsNotExist(err) {
+		err := os.Mkdir("tmp", 0755)
+		assert.NoError(t, err)
+	}
+
+	_, err = os.Stat("tmp/" + path)
+	if os.IsNotExist(err) {
+		err := os.Mkdir("tmp/"+path, 0755)
+		assert.NoError(t, err)
+	}
+
 	contents, response, err := client.Kv.GetKv(path, getKvRequestQuery)
 	assert.NoError(t, err)
 	assert.Equal(t, http.StatusOK, response.StatusCode)
@@ -203,4 +216,7 @@ func getKvName(dc string, name string, client *Client, t *testing.T) {
 
 	decodedString := string(decodedBytes)
 	t.Log(decodedString)
+
+	err = os.WriteFile("tmp/"+name, []byte(strings.Trim(decodedString, `"`)), 0644)
+	assert.NoError(t, err)
 }
