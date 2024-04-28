@@ -31,7 +31,7 @@ jobs:
 
     services:
       consul:
-        image: consul:1.15.4
+        image: hashicorp/consul:1.18.1
 
     steps:
       - name: Checkout repository（xuxiaowei-com-cn/cicd-release）
@@ -86,7 +86,7 @@ jobs:
           echo "YEAR_MONTH_DAY=$(date +'%Y-%m-%dZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR=$(date +'%Y-%m-%dT%HZ')" >> $GITHUB_ENV
           echo "YEAR_MONTH_DAY_HOUR_MINUTE=$(date +'%Y-%m-%dT%H-%MZ')" >> $GITHUB_ENV
-          CONSUL_HOST=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -qf 'ancestor=consul:1.15.4')`
+          CONSUL_HOST=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -qf 'ancestor=hashicorp/consul:1.18.1')`
           echo "CONSUL_GO_BASE_URL=http://$CONSUL_HOST:8500/" >> $GITHUB_ENV
 
       - name: Get Current Date ENV
