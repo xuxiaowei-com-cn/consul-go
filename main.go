@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/urfave/cli/v2"
+	"github.com/xuxiaowei-com-cn/consul-go/command"
 	"github.com/xuxiaowei-com-cn/git-go/buildinfo"
 	"gopkg.in/yaml.v3"
 	"log"
@@ -55,7 +56,9 @@ func main() {
 		Authors:   []*cli.Author{{Name: Author, Email: Email}},
 		Usage:     Description,
 		Copyright: Copyright,
-		Commands:  []*cli.Command{},
+		Commands: []*cli.Command{
+			command.KvCommand(),
+		},
 	}
 
 	if err := app.Run(os.Args); err != nil {

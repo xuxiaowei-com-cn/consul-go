@@ -129,6 +129,7 @@ jobs:
           GOOS=darwin  GOARCH=arm64   go build -ldflags "-s -w -buildid= -X main.BuildDate=$(buildinfo/buildinfo now) -X main.Compiler= -X main.GitCommitBranch=$GITHUB_REF_NAME -X main.GitCommitSha=$(buildinfo/buildinfo commitSha) -X main.GitCommitShortSha=$(buildinfo/buildinfo commitShortSha) -X main.GitCommitTag=$(buildinfo/buildinfo commitTag) -X main.GitCommitTimestamp=$(buildinfo/buildinfo commitTimestamp) -X main.GitTreeState=$(buildinfo/buildinfo git-tree-state) -X main.GitVersion=$(buildinfo/buildinfo commitTag) -X main.GoVersion=$(buildinfo/buildinfo goShortVersion) -X main.Major= -X main.Minor= -X main.Revision= -X main.Platform=darwin/arm64  -X main.InstanceUrl=$GITHUB_SERVER_URL -X main.CiPipelineId=$GITHUB_RUN_ID -X main.CiJobId=$GITHUB_RUN_NUMBER" -trimpath -o consul-go-darwin-arm64 .
           ./consul-go-linux-amd64 --version
           ./consul-go-linux-amd64
+          ./consul-go-linux-amd64 kv export
 
       - name: ls -l
         run: ls -l

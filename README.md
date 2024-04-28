@@ -57,6 +57,7 @@ AUTHOR:
    徐晓伟 <xuxiaowei@xuxiaowei.com.cn>
 
 COMMANDS:
+   kv       Key / Value
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
@@ -65,6 +66,43 @@ GLOBAL OPTIONS:
 
 COPYRIGHT:
    徐晓伟工作室 <xuxiaowei@xuxiaowei.com.cn>
+```
+
+- Key / Value
+
+```shell
+$ go run main.go kv --help
+NAME:
+   consul-go kv - Key / Value
+
+USAGE:
+   consul-go kv command [command options]
+
+COMMANDS:
+   export   导出
+   help, h  Shows a list of commands or help for one command
+
+OPTIONS:
+   --base-url value  Consul URL (default: "http://127.0.0.1:8500") [%CONSUL_GO_BASE_URL%]
+   --dc value        dc (default: "dc1") [%CONSUL_GO_DC%]
+   --help, -h        show help
+```
+
+- Key / Value：export
+
+```shell
+$ go run main.go kv export --help
+NAME:
+   consul-go kv export - 导出
+
+USAGE:
+   consul-go kv export [command options] [arguments...]
+
+OPTIONS:
+   --base-url value       Consul URL (default: "http://127.0.0.1:8500") [%CONSUL_GO_BASE_URL%]
+   --dc value             dc (default: "dc1") [%CONSUL_GO_DC%]
+   --export-folder value  导出文件夹 (default: "consul-go-export-folder") [%CONSUL_GO_DC_EXPORT_FOLDER%]
+   --help, -h             show help
 ```
 
 ### test

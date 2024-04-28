@@ -41,3 +41,4 @@ build/
 /buildinfo/buildinfo
 
 tmp
+consul-go-export-folder
