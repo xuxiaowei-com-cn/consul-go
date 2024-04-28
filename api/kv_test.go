@@ -49,5 +49,5 @@ func TestGetKvName(t *testing.T) {
 
 	contentsByte, err := json.Marshal(contents)
 	assert.NoError(t, err)
-	assert.True(t, string(contentsByte) == "null")
+	assert.Equal(t, "null", string(contentsByte))
 }

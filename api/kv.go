@@ -37,7 +37,16 @@ type GetKvNameRequestQuery struct {
 	Dc string `json:"dc,omitempty" url:"dc"`
 }
 
-func (s *KvService) GetKvName(name string, requestQuery *GetKvNameRequestQuery, options ...RequestOptionFunc) ([]string, *Response, error) {
+type GetKvNameResponse struct {
+	LockIndex   int    `json:"LockIndex,omitempty"`
+	Key         string `json:"Key,omitempty"`
+	Flags       int    `json:"Flags,omitempty"`
+	Value       string `json:"Value,omitempty"`
+	CreateIndex int    `json:"CreateIndex,omitempty"`
+	ModifyIndex int    `json:"ModifyIndex,omitempty"`
+}
+
+func (s *KvService) GetKvName(name string, requestQuery *GetKvNameRequestQuery, options ...RequestOptionFunc) ([]GetKvNameResponse, *Response, error) {
 
 	u := fmt.Sprintf("v1/kv/%s", name)
 
@@ -46,11 +55,11 @@ func (s *KvService) GetKvName(name string, requestQuery *GetKvNameRequestQuery, 
 		return nil, nil, err
 	}
 
-	var contents []string
-	resp, err := s.client.Do(req, &contents)
+	var response []GetKvNameResponse
+	resp, err := s.client.Do(req, &response)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return contents, resp, nil
+	return response, resp, nil
 }
