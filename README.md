@@ -80,6 +80,7 @@ USAGE:
 
 COMMANDS:
    export   导出
+   import   导入
    help, h  Shows a list of commands or help for one command
 
 OPTIONS:
@@ -102,6 +103,23 @@ OPTIONS:
    --base-url value       Consul URL (default: "http://127.0.0.1:8500") [%CONSUL_GO_BASE_URL%]
    --dc value             dc (default: "dc1") [%CONSUL_GO_DC%]
    --export-folder value  导出文件夹 (default: "consul-go-export-folder") [%CONSUL_GO_DC_EXPORT_FOLDER%]
+   --help, -h             show help
+```
+
+- Key / Value：import
+
+```shell
+$ go run main.go kv import --help
+NAME:
+   consul-go kv import - 导入
+
+USAGE:
+   consul-go kv import [command options] [arguments...]
+
+OPTIONS:
+   --base-url value       Consul URL (default: "http://127.0.0.1:8500") [%CONSUL_GO_BASE_URL%]
+   --dc value             dc (default: "dc1") [%CONSUL_GO_DC%]
+   --import-folder value  导入文件夹 (default: "consul-go-import-folder") [%CONSUL_GO_DC_IMPORT_FOLDER%]
    --help, -h             show help
 ```
 

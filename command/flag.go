@@ -6,6 +6,7 @@ const (
 	BaseUrl      = "base-url"
 	Dc           = "dc"
 	ExportFolder = "export-folder"
+	ImportFolder = "import-folder"
 )
 
 func BaseUrlFlag() cli.Flag {
@@ -32,6 +33,15 @@ func ExportFolderFlag() cli.Flag {
 		Usage:   "导出文件夹",
 		Value:   "consul-go-export-folder",
 		EnvVars: []string{"CONSUL_GO_DC_EXPORT_FOLDER"},
+	}
+}
+
+func ImportFolderFlag() cli.Flag {
+	return &cli.StringFlag{
+		Name:    ImportFolder,
+		Usage:   "导入文件夹",
+		Value:   "consul-go-import-folder",
+		EnvVars: []string{"CONSUL_GO_DC_IMPORT_FOLDER"},
 	}
 }
 

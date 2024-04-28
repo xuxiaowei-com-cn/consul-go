@@ -8,6 +8,7 @@ build:golang:1.21:
   variables:
     CGO_ENABLED: 0
     CONSUL_GO_BASE_URL: http://consul:8500/
+    CONSUL_GO_DC_IMPORT_FOLDER: api
   services:
     - consul:1.15.4
   script:

@@ -11,6 +11,7 @@ func KvCommand() *cli.Command {
 		Flags: append(Common()),
 		Subcommands: []*cli.Command{
 			KvExportCommand(),
+			KvImportCommand(),
 		},
 	}
 }
