@@ -102,7 +102,7 @@ func PutKvName(baseURL string, dc string, name string, requestBody string, t *te
 	assert.Equal(t, requestBody, strings.Trim(decodedString, `"`))
 }
 
-func TestRecursion(t *testing.T) {
+func TestGetRecursion(t *testing.T) {
 
 	var baseURL = Getenv("CONSUL_GO_BASE_URL", "http://127.0.0.1:8500/")
 	var dc = Getenv("CONSUL_GO_DC", "dc1")
@@ -166,9 +166,17 @@ func folder(dc string, path string, client *Client, t *testing.T) {
 		assert.NoError(t, err)
 	}
 
-	_, err = os.Stat("tmp/" + path)
+	getFolder := "tmp/get/"
+
+	_, err = os.Stat(getFolder)
 	if os.IsNotExist(err) {
-		err := os.Mkdir("tmp/"+path, 0755)
+		err := os.Mkdir(getFolder, 0755)
+		assert.NoError(t, err)
+	}
+
+	_, err = os.Stat(getFolder + path)
+	if os.IsNotExist(err) {
+		err := os.Mkdir(getFolder+path, 0755)
 		assert.NoError(t, err)
 	}
 
@@ -217,6 +225,6 @@ func getKvName(dc string, name string, client *Client, t *testing.T) {
 	decodedString := string(decodedBytes)
 	t.Log(decodedString)
 
-	err = os.WriteFile("tmp/"+name, []byte(strings.Trim(decodedString, `"`)), 0644)
+	err = os.WriteFile("tmp/get/"+name, []byte(strings.Trim(decodedString, `"`)), 0644)
 	assert.NoError(t, err)
 }
