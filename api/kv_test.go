@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -151,6 +152,70 @@ func TestGetRecursion(t *testing.T) {
 
 	}
 
+}
+
+func TestPutRecursion(t *testing.T) {
+	var baseURL = Getenv("CONSUL_GO_BASE_URL", "http://127.0.0.1:8500/")
+	var dc = Getenv("CONSUL_GO_DC", "dc1")
+
+	_, err := os.Stat("tmp")
+	if os.IsNotExist(err) {
+		err := os.Mkdir("tmp", 0755)
+		assert.NoError(t, err)
+	}
+
+	putFolder := "tmp/put/"
+
+	_, err = os.Stat(putFolder)
+	if os.IsNotExist(err) {
+		err := os.Mkdir(putFolder, 0755)
+		assert.NoError(t, err)
+	}
+
+	putFolder0 := putFolder
+
+	for i := 0; i < 5; i++ {
+		name := randString(5)
+		txt := randString(32)
+		err = os.WriteFile(putFolder0+name, []byte(txt), 0644)
+		assert.NoError(t, err)
+	}
+
+	putFolder1 := putFolder + randString(3) + "/"
+	_, err = os.Stat(putFolder1)
+	if os.IsNotExist(err) {
+		err := os.Mkdir(putFolder1, 0755)
+		assert.NoError(t, err)
+	}
+
+	for i := 0; i < 5; i++ {
+		name := randString(5)
+		txt := randString(32)
+		err = os.WriteFile(putFolder1+name, []byte(txt), 0644)
+		assert.NoError(t, err)
+	}
+
+	err = filepath.Walk(putFolder, func(path string, info os.FileInfo, err error) error {
+		assert.NoError(t, err)
+
+		// 如果是文件，而不是文件夹，则读取文件内容
+		if !info.IsDir() {
+			fileContent, err := os.ReadFile(path)
+			if err != nil {
+				return err
+			}
+
+			tmp1 := strings.ReplaceAll(path, "\\", "/")
+			tmp2 := strings.Replace(tmp1, putFolder, "", 1)
+
+			var requestBody = string(fileContent)
+
+			PutKvName(baseURL, dc, tmp2, requestBody, t)
+		}
+		return nil
+	})
+
+	assert.NoError(t, err)
 }
 
 func folder(dc string, path string, client *Client, t *testing.T) {
