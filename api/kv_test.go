@@ -99,7 +99,7 @@ func PutKvName(baseURL string, dc string, name string, requestBody string, t *te
 	decodedString := string(decodedBytes)
 	t.Log(decodedString)
 
-	assert.Equal(t, requestBody, strings.Trim(decodedString, `"`))
+	assert.Equal(t, requestBody, decodedString)
 }
 
 func TestGetRecursion(t *testing.T) {
@@ -225,6 +225,6 @@ func getKvName(dc string, name string, client *Client, t *testing.T) {
 	decodedString := string(decodedBytes)
 	t.Log(decodedString)
 
-	err = os.WriteFile("tmp/get/"+name, []byte(strings.Trim(decodedString, `"`)), 0644)
+	err = os.WriteFile("tmp/get/"+name, []byte(decodedString), 0644)
 	assert.NoError(t, err)
 }

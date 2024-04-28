@@ -140,9 +140,13 @@ func (c *Client) NewRequest(method string, path string, requestQuery interface{}
 		reqHeaders.Set("Content-Type", "application/json")
 
 		if requestBody != nil {
-			body, err = json.Marshal(requestBody)
-			if err != nil {
-				return nil, err
+			if str, ok := requestBody.(string); ok {
+				body = []byte(str)
+			} else {
+				body, err = json.Marshal(requestBody)
+				if err != nil {
+					return nil, err
+				}
 			}
 		}
 	}
