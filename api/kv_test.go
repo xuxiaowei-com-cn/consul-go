@@ -290,6 +290,12 @@ func getKvName(dc string, name string, client *Client, t *testing.T) {
 	decodedString := string(decodedBytes)
 	t.Log(decodedString)
 
+	_, err = os.Stat("tmp/get/")
+	if os.IsNotExist(err) {
+		err := os.MkdirAll("tmp/get/", 0755)
+		assert.NoError(t, err)
+	}
+
 	err = os.WriteFile("tmp/get/"+name, []byte(decodedString), 0644)
 	assert.NoError(t, err)
 }
