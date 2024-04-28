@@ -160,7 +160,7 @@ func TestPutRecursion(t *testing.T) {
 
 	_, err := os.Stat("tmp")
 	if os.IsNotExist(err) {
-		err := os.Mkdir("tmp", 0755)
+		err := os.MkdirAll("tmp", 0755)
 		assert.NoError(t, err)
 	}
 
@@ -168,7 +168,7 @@ func TestPutRecursion(t *testing.T) {
 
 	_, err = os.Stat(putFolder)
 	if os.IsNotExist(err) {
-		err := os.Mkdir(putFolder, 0755)
+		err := os.MkdirAll(putFolder, 0755)
 		assert.NoError(t, err)
 	}
 
@@ -184,7 +184,7 @@ func TestPutRecursion(t *testing.T) {
 	putFolder1 := putFolder + randString(3) + "/"
 	_, err = os.Stat(putFolder1)
 	if os.IsNotExist(err) {
-		err := os.Mkdir(putFolder1, 0755)
+		err := os.MkdirAll(putFolder1, 0755)
 		assert.NoError(t, err)
 	}
 
@@ -227,7 +227,7 @@ func folder(dc string, path string, client *Client, t *testing.T) {
 
 	_, err := os.Stat("tmp")
 	if os.IsNotExist(err) {
-		err := os.Mkdir("tmp", 0755)
+		err := os.MkdirAll("tmp", 0755)
 		assert.NoError(t, err)
 	}
 
@@ -235,13 +235,13 @@ func folder(dc string, path string, client *Client, t *testing.T) {
 
 	_, err = os.Stat(getFolder)
 	if os.IsNotExist(err) {
-		err := os.Mkdir(getFolder, 0755)
+		err := os.MkdirAll(getFolder, 0755)
 		assert.NoError(t, err)
 	}
 
 	_, err = os.Stat(getFolder + path)
 	if os.IsNotExist(err) {
-		err := os.Mkdir(getFolder+path, 0755)
+		err := os.MkdirAll(getFolder+path, 0755)
 		assert.NoError(t, err)
 	}
 
