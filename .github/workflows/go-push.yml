@@ -148,3 +148,163 @@ jobs:
             consul-go-darwin-amd64
             consul-go-darwin-arm64
             consul-go-loong64
+
+
+  release-github:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 获取所有的代码历史记录，包括分支和标签
+          fetch-depth: 0
+
+      - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
+        uses: actions/download-artifact@v3
+        with:
+          name: cicd-release
+          path: .
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: consul-go
+          path: .
+
+      - name: ls -l
+        run: ls -l
+
+      - name: chmod +x cicd-release-linux-amd64
+        run: chmod +x cicd-release-linux-amd64
+
+      - name: ls -l
+        run: ls -l
+
+      - name: Release GitHub
+        run: |
+          ./cicd-release-linux-amd64 pre-release github --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --github-repository=$GITHUB_REPOSITORY --github-username=$GITHUB_ACTOR --github-token=${{ secrets.PRIVATE_GITHUB_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --artifacts=consul-go-windows-amd64.exe --artifacts=consul-go-windows-arm64.exe --artifacts=consul-go-linux-amd64 --artifacts=consul-go-linux-arm64 --artifacts=consul-go-darwin-amd64 --artifacts=consul-go-darwin-arm64 --artifacts=consul-go-loong64
+
+  release-gitlab:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 获取所有的代码历史记录，包括分支和标签
+          fetch-depth: 0
+
+      - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
+        uses: actions/download-artifact@v3
+        with:
+          name: cicd-release
+          path: .
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: consul-go
+          path: .
+
+      - name: ls -l
+        run: ls -l
+
+      - name: chmod +x cicd-release-linux-amd64
+        run: chmod +x cicd-release-linux-amd64
+
+      - name: ls -l
+        run: ls -l
+
+      - name: Release GitLab
+        run: |
+          ./cicd-release-linux-amd64 pre-release gitlab --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitlab-repository=$GITHUB_REPOSITORY --gitlab-username=$GITHUB_ACTOR --gitlab-token=${{ secrets.PRIVATE_GITLAB_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --package-name=cicd-release --artifacts=consul-go-windows-amd64.exe --artifacts=consul-go-windows-arm64.exe --artifacts=consul-go-linux-amd64 --artifacts=consul-go-linux-arm64 --artifacts=consul-go-darwin-amd64 --artifacts=consul-go-darwin-arm64 --artifacts=consul-go-loong64
+
+  release-gitlink:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 获取所有的代码历史记录，包括分支和标签
+          fetch-depth: 0
+
+      - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
+        uses: actions/download-artifact@v3
+        with:
+          name: cicd-release
+          path: .
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: consul-go
+          path: .
+
+      - name: ls -l
+        run: ls -l
+
+      - name: chmod +x cicd-release-linux-amd64
+        run: chmod +x cicd-release-linux-amd64
+
+      - name: ls -l
+        run: ls -l
+
+      - name: Release GitLink
+        run: |
+          ./cicd-release-linux-amd64 pre-release gitlink --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitlink-repository=$GITHUB_REPOSITORY --gitlink-username=${{ secrets.PRIVATE_GITLINK_USERNAME }} --gitlink-token=${{ secrets.PRIVATE_GITLINK_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --artifacts=consul-go-windows-amd64.exe --artifacts=consul-go-windows-arm64.exe --artifacts=consul-go-linux-amd64 --artifacts=consul-go-linux-arm64 --artifacts=consul-go-darwin-amd64 --artifacts=consul-go-darwin-arm64 --artifacts=consul-go-loong64  --gitlink-cookie=${{ secrets.PRIVATE_GITLINK_COOKIE }} --gitlink-export-assets-file-name=cicd-release-assets.json
+
+      - name: Upload Artifacts（cicd-release-assets.json）
+        uses: actions/upload-artifact@v3
+        with:
+          name: cicd-release-assets
+          path: |
+            cicd-release-assets.json
+
+  release-gitee:
+    needs:
+      - build
+      - release-gitlink
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 获取所有的代码历史记录，包括分支和标签
+          fetch-depth: 0
+
+      - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
+        uses: actions/download-artifact@v3
+        with:
+          name: cicd-release
+          path: .
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: consul-go
+          path: .
+
+      - name: ls -l
+        run: ls -l
+
+      - name: chmod +x cicd-release-linux-amd64
+        run: chmod +x cicd-release-linux-amd64
+
+      - name: ls -l
+        run: ls -l
+
+      - name: Download Artifacts（cicd-release-assets.json）
+        uses: actions/download-artifact@v3
+        with:
+          name: cicd-release-assets
+          path: .
+
+      - name: Release Gitee
+        run: |
+          ./cicd-release-linux-amd64 pre-release gitee --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitee-repository=$GITHUB_REPOSITORY --gitee-username=$GITHUB_ACTOR --gitee-token=${{ secrets.PRIVATE_GITEE_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --gitlink-export-assets-file-name=cicd-release-assets.json
