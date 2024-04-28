@@ -17,7 +17,7 @@ jobs:
     env:
       CGO_ENABLED: 0
       RELEASE_BODY: 自动化发布
-      CONSUL_GO_DC_IMPORT_FOLDER: api
+      CONSUL_GO_IMPORT_FOLDER: api
 
     outputs:
       YEAR_MONTH_DAY: ${{ steps.set_current_date_output.outputs.YEAR_MONTH_DAY }}
