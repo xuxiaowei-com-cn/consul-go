@@ -37,7 +37,7 @@ func KvExport(baseUrl string, dc string, exportFolder string) error {
 
 	_, err = os.Stat(exportFolder)
 	if os.IsNotExist(err) {
-		err := os.Mkdir(exportFolder, 0755)
+		err := os.MkdirAll(exportFolder, 0755)
 		if err != nil {
 			return err
 		}
@@ -84,7 +84,7 @@ func KvFolder(dc string, path string, exportFolder string, client *api.Client) e
 
 	_, err := os.Stat(exportFolder + "/" + path)
 	if os.IsNotExist(err) {
-		err := os.Mkdir(exportFolder+"/"+path, 0755)
+		err := os.MkdirAll(exportFolder+"/"+path, 0755)
 		if err != nil {
 			return err
 		}
