@@ -36,7 +36,13 @@ build:golang:1.21:
     name: "${CI_JOB_NAME}"
     expire_in: 3 day
     paths:
-      - consul-go-*
+      - consul-go-darwin-amd64
+      - consul-go-darwin-arm64
+      - consul-go-linux-amd64
+      - consul-go-linux-arm64
+      - consul-go-loong64
+      - consul-go-windows-amd64.exe
+      - consul-go-windows-arm64.exe
 
 include:
   - /sync.yml
