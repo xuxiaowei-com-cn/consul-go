@@ -162,13 +162,13 @@ jobs:
           fetch-depth: 0
 
       - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: cicd-release
           path: .
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: consul-go
           path: .
@@ -198,13 +198,13 @@ jobs:
           fetch-depth: 0
 
       - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: cicd-release
           path: .
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: consul-go
           path: .
@@ -234,13 +234,13 @@ jobs:
           fetch-depth: 0
 
       - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: cicd-release
           path: .
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: consul-go
           path: .
@@ -259,7 +259,7 @@ jobs:
           ./cicd-release-linux-amd64 pre-release gitlink --release-name=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --tag=v0.0.0-${{ needs.build.outputs.YEAR_MONTH_DAY_HOUR_MINUTE }} --auto-create-tag --gitlink-repository=$GITHUB_REPOSITORY --gitlink-username=${{ secrets.PRIVATE_GITLINK_USERNAME }} --gitlink-token=${{ secrets.PRIVATE_GITLINK_TOKEN }} --release-body=${{ needs.build.outputs.RELEASE_BODY }} --artifacts=consul-go-windows-amd64.exe --artifacts=consul-go-windows-arm64.exe --artifacts=consul-go-linux-amd64 --artifacts=consul-go-linux-arm64 --artifacts=consul-go-darwin-amd64 --artifacts=consul-go-darwin-arm64 --artifacts=consul-go-loong64  --gitlink-cookie=${{ secrets.PRIVATE_GITLINK_COOKIE }} --gitlink-export-assets-file-name=cicd-release-assets.json
 
       - name: Upload Artifacts（cicd-release-assets.json）
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cicd-release-assets
           path: |
@@ -279,13 +279,13 @@ jobs:
           fetch-depth: 0
 
       - name: Download Artifacts（xuxiaowei-com-cn/cicd-release）
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: cicd-release
           path: .
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: consul-go
           path: .
@@ -300,7 +300,7 @@ jobs:
         run: ls -l
 
       - name: Download Artifacts（cicd-release-assets.json）
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: cicd-release-assets
           path: .
