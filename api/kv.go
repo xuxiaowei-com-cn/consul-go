@@ -63,3 +63,25 @@ func (s *KvService) GetKvName(name string, requestQuery *GetKvNameRequestQuery, 
 
 	return response, resp, nil
 }
+
+type PutKvNameRequestQuery struct {
+	Dc string `json:"dc,omitempty" url:"dc"`
+}
+
+func (s *KvService) PutKvName(name string, requestQuery *PutKvNameRequestQuery, requestBody interface{}, options ...RequestOptionFunc) (*bool, *Response, error) {
+
+	u := fmt.Sprintf("v1/kv/%s", name)
+
+	req, err := s.client.NewRequest(http.MethodPut, u, requestQuery, requestBody, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var result *bool
+	resp, err := s.client.Do(req, &result)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return result, resp, nil
+}
