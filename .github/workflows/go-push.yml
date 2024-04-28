@@ -131,6 +131,7 @@ jobs:
           ./consul-go-linux-amd64 --version
           ./consul-go-linux-amd64
           ./consul-go-linux-amd64 kv export
+          ./consul-go-linux-amd64 kv import
 
       - name: ls -l
         run: ls -l
