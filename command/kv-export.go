@@ -15,16 +15,23 @@ func KvExportCommand() *cli.Command {
 	return &cli.Command{
 		Name:  "export",
 		Usage: "导出",
-		Flags: append(Common(), ExportFolderFlag()),
+		Flags: append(Common(), ExportFolderFlag(), ExportFolderUseDateFlag()),
 		Action: func(context *cli.Context) error {
 			var baseUrl = context.String(BaseUrl)
 			var dc = context.String(Dc)
 			var exportFolder = context.String(ExportFolder)
+			var exportFolderDate = context.Bool(ExportFolderDate)
 
-			currentTime := time.Now()
-			folderTime := currentTime.Format("2006-01-02_15-04-05")
+			var folder string
+			if exportFolderDate {
+				currentTime := time.Now()
+				folderTime := currentTime.Format("2006-01-02_15-04-05")
+				folder = exportFolder + "/" + folderTime
+			} else {
+				folder = exportFolder
+			}
 
-			return KvExport(baseUrl, dc, exportFolder+"/"+folderTime)
+			return KvExport(baseUrl, dc, folder)
 		},
 	}
 }

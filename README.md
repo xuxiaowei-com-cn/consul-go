@@ -102,7 +102,8 @@ USAGE:
 OPTIONS:
    --base-url value       Consul URL (default: "http://127.0.0.1:8500") [%CONSUL_GO_BASE_URL%]
    --dc value             dc (default: "dc1") [%CONSUL_GO_DC%]
-   --export-folder value  导出文件夹 (default: "consul-go-export-folder") [%CONSUL_GO_DC_EXPORT_FOLDER%]
+   --export-folder value  导出文件夹 (default: "consul-go-export-folder") [%CONSUL_GO_EXPORT_FOLDER%]
+   --export-folder-date   导出文件夹是否使用日期 (default: true) [%CONSUL_GO_EXPORT_FOLDER_DATE%]
    --help, -h             show help
 ```
 
@@ -119,7 +120,7 @@ USAGE:
 OPTIONS:
    --base-url value       Consul URL (default: "http://127.0.0.1:8500") [%CONSUL_GO_BASE_URL%]
    --dc value             dc (default: "dc1") [%CONSUL_GO_DC%]
-   --import-folder value  导入文件夹 (default: "consul-go-import-folder") [%CONSUL_GO_DC_IMPORT_FOLDER%]
+   --import-folder value  导入文件夹 (default: "consul-go-import-folder") [%CONSUL_GO_IMPORT_FOLDER%]
    --help, -h             show help
 ```
 
