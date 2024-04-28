@@ -97,3 +97,55 @@ func TestPutKvName(t *testing.T) {
 
 	assert.Equal(t, requestBody, strings.Trim(decodedString, `"`))
 }
+
+func TestRecursion(t *testing.T) {
+
+	var baseURL = Getenv("CONSUL_GO_BASE_URL", "http://127.0.0.1:8500/")
+	var dc = Getenv("CONSUL_GO_DC", "dc1")
+
+	client, err := NewClient(baseURL, "", "")
+	assert.NoError(t, err)
+
+	for i := 0; i < 5; i++ {
+		TestPutKvName(t)
+	}
+
+	var getKvRequestQuery = &GetKvRequestQuery{
+		Keys:      "",
+		Dc:        dc,
+		Separator: "/",
+	}
+
+	contents, response, err := client.Kv.GetKv(getKvRequestQuery)
+	assert.NoError(t, err)
+	assert.Equal(t, http.StatusOK, response.StatusCode)
+
+	contentsByte, err := json.Marshal(contents)
+	assert.NoError(t, err)
+
+	t.Log("Contents:", string(contentsByte))
+
+	for _, name := range contents {
+		var getKvNameRequestQuery = &GetKvNameRequestQuery{
+			Dc: dc,
+		}
+		responses, response, err := client.Kv.GetKvName(name, getKvNameRequestQuery)
+		assert.NoError(t, err)
+		assert.Equal(t, http.StatusOK, response.StatusCode)
+
+		contentsByte, err := json.Marshal(responses)
+		assert.NoError(t, err)
+
+		t.Log("Contents:", string(contentsByte))
+
+		assert.Equal(t, 1, len(responses))
+		assert.NotEmpty(t, responses[0].Value)
+
+		decodedBytes, err := base64.StdEncoding.DecodeString(responses[0].Value)
+		assert.NoError(t, err)
+
+		decodedString := string(decodedBytes)
+		t.Log(decodedString)
+	}
+
+}
